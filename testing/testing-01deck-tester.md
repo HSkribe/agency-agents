@@ -50,6 +50,9 @@ export DECK_BASE_URL="https://d3949vgrsaqpxs.cloudfront.net"  # optional; defaul
 export DECK_OUTPUT_DIR="artifacts/01deck"
 export DECK_AUTH_EMAIL=""       # optional, if authenticated flows exist
 export DECK_AUTH_PASSWORD=""    # optional, if authenticated flows exist
+export DECK_THRESHOLD_LOAD_S="3.0"          # default 01deck gate
+export DECK_THRESHOLD_LCP_S="2.5"           # default 01deck gate
+export DECK_THRESHOLD_INTERACTION_MS="200"  # default 01deck gate
 ```
 
 ### Base URL handling rules
@@ -92,12 +95,12 @@ export DECK_AUTH_PASSWORD=""    # optional, if authenticated flows exist
 - Flag regressions or threshold breaches.
 
 #### Performance thresholds
-- Initial page load (median): `<= 3.0s`
-- LCP proxy (median): `<= 2.5s` (from browser `largest-contentful-paint` entries via `PerformanceObserver`)
-- Primary interaction latency (median): `<= 200ms`
+- Initial page load (median): `<= DECK_THRESHOLD_LOAD_S` (default `3.0s`)
+- LCP proxy (median): `<= DECK_THRESHOLD_LCP_S` (default `2.5s`; from browser `largest-contentful-paint` entries via `PerformanceObserver`)
+- Primary interaction latency (median): `<= DECK_THRESHOLD_INTERACTION_MS` (default `200ms`)
 
 #### Performance measurement method
-- **Initial page load**: `performance.timing`-derived load duration or Navigation Timing equivalent from navigation start to load completion.
+- **Initial page load**: Navigation Timing (`performance.getEntriesByType('navigation')`) from navigation start to load completion.
 - **LCP proxy**: read the final `largest-contentful-paint` entry value in milliseconds and convert to seconds.
 - **Primary interaction latency**: time from user-triggered click/keypress to the expected visible UI state change.
 
