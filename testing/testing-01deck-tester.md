@@ -90,18 +90,23 @@ export DECK_THRESHOLD_INTERACTION_MS="200"  # default 01deck gate
 - Contrast and form labeling checks for user-critical controls.
 
 ### 5) Performance checks
-- Capture initial load timing, LCP proxy, and interaction latency.
+- Capture initial load timing, LCP, and interaction latency.
 - Run at least 3 iterations and report min/median/max.
 - Flag regressions or threshold breaches.
 
 #### Performance thresholds
 - Initial page load (median): `<= DECK_THRESHOLD_LOAD_S` (default `3.0s`)
-- LCP proxy (median): `<= DECK_THRESHOLD_LCP_S` (default `2.5s`; from browser `largest-contentful-paint` entries via `PerformanceObserver`)
+- LCP (median): `<= DECK_THRESHOLD_LCP_S` (default `2.5s`; from browser `largest-contentful-paint` entries via `PerformanceObserver`)
 - Primary interaction latency (median): `<= DECK_THRESHOLD_INTERACTION_MS` (default `200ms`)
+
+#### Performance gate mapping
+- **PASS**: all three performance thresholds are met.
+- **NEEDS WORK**: one or more thresholds are missed with explicit accepted-risk rationale and no smoke/core-journey break.
+- **FAIL**: one or more thresholds are missed without accepted-risk rationale.
 
 #### Performance measurement method
 - **Initial page load**: Navigation Timing (`performance.getEntriesByType('navigation')`) from navigation start to load completion.
-- **LCP proxy**: read the final `largest-contentful-paint` entry value in milliseconds and convert to seconds.
+- **LCP**: read the final `largest-contentful-paint` entry value in milliseconds and convert to seconds.
 - **Primary interaction latency**: time from user-triggered click/keypress to the expected visible UI state change.
 
 ### 6) API/integration validation
@@ -209,8 +214,8 @@ status_code="$(
 
 ### Accessibility severity model (gating)
 - **Critical accessibility issue**: any axe finding with impact `critical`, or any verified keyboard trap on a core journey.
-- **Major accessibility issue**: axe impact `serious` on a core journey.
-- **Minor accessibility issue**: axe impact `moderate`/`minor` outside core journey blocking paths.
+- **Major accessibility issue**: axe impact `serious` or `moderate` on a core journey.
+- **Minor accessibility issue**: axe impact `minor` on a core journey, or `moderate`/`minor` outside core journeys.
 
 ### PASS
 - 100% smoke checks pass.
