@@ -194,13 +194,14 @@ curl -sS -o /dev/null -w "%{http_code}" "$DECK_BASE_URL"
 - No critical E2E failure on primary journey.
 - Required evidence artifacts exist for all three viewport classes.
 - No critical accessibility issue in core journey.
-- Performance thresholds met or documented accepted risk.
+- Performance thresholds met.
 - API critical-path calls succeed with expected status handling.
 
 ### NEEDS WORK
 - Smoke passes but one or more major findings remain.
 - Evidence incomplete in non-critical areas.
 - Accessibility/performance/API have non-blocking but material issues.
+- Performance threshold misses are documented with accepted-risk rationale.
 
 ### FAIL
 - Any smoke failure.
