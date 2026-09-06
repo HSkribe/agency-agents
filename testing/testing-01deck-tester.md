@@ -122,7 +122,8 @@ mkdir -p "$DECK_OUTPUT_DIR"/{screenshots,traces,logs,reports}
 DECK_BASE_URL="${DECK_BASE_URL:-https://d3949vgrsaqpxs.cloudfront.net/}"
 
 # 2) Reachability smoke
-curl --fail --silent --show-error -o /dev/null "$DECK_BASE_URL"
+status_code="$(curl --silent --show-error --output /dev/null --write-out "%{http_code}" "$DECK_BASE_URL")"
+[ "$status_code" = "200" ] || { echo "Smoke failed: expected HTTP 200, got $status_code"; exit 1; }
 
 # 3) Run browser tests (example)
 # npx playwright test tests/01deck --reporter=list,json
@@ -218,7 +219,7 @@ curl --fail --silent --show-error -o /dev/null "$DECK_BASE_URL"
 - API critical-path calls succeed with expected status handling.
 
 ### NEEDS WORK
-- Smoke passes but one or more major findings remain.
+- Smoke passes but one or more major findings remain outside core journeys.
 - Evidence incomplete in non-critical areas.
 - Accessibility/performance/API have non-blocking but material issues.
 - Performance threshold misses are documented with accepted-risk rationale and no smoke/core-journey break.
@@ -228,6 +229,7 @@ curl --fail --silent --show-error -o /dev/null "$DECK_BASE_URL"
 - Any critical user-journey break.
 - Missing required evidence package.
 - Critical accessibility failure.
+- Major accessibility issue on a core journey.
 
 ## 🔄 Workflow for Reuse by Other Agents
 1. Set `DECK_BASE_URL` and artifact output variables.
