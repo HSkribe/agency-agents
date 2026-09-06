@@ -122,7 +122,9 @@ mkdir -p "$DECK_OUTPUT_DIR"/{screenshots,traces,logs,reports}
 DECK_BASE_URL="${DECK_BASE_URL:-https://d3949vgrsaqpxs.cloudfront.net/}"
 
 # 2) Reachability smoke
-status_code="$(curl --silent --show-error --output /dev/null --write-out "%{http_code}" "$DECK_BASE_URL")"
+status_code="$(
+  curl --silent --show-error --output /dev/null --write-out "%{http_code}" "$DECK_BASE_URL"
+)" || { echo "Smoke failed: transport error reaching $DECK_BASE_URL"; exit 1; }
 [ "$status_code" = "200" ] || { echo "Smoke failed: expected HTTP 200, got $status_code"; exit 1; }
 
 # 3) Run browser tests (example)
@@ -230,6 +232,8 @@ status_code="$(curl --silent --show-error --output /dev/null --write-out "%{http
 - Missing required evidence package.
 - Critical accessibility failure.
 - Major accessibility issue on a core journey.
+- API critical-path failure or missing required API evidence.
+- Performance threshold breach without accepted-risk rationale.
 
 ## 🔄 Workflow for Reuse by Other Agents
 1. Set `DECK_BASE_URL` and artifact output variables.
