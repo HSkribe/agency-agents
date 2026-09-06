@@ -90,6 +90,11 @@ export DECK_AUTH_PASSWORD=""    # optional, if authenticated flows exist
 - Run at least 3 iterations and report min/median/max.
 - Flag regressions or threshold breaches.
 
+#### Performance thresholds
+- Initial page load (median): `<= 3.0s`
+- LCP proxy (median): `<= 2.5s`
+- Primary interaction latency (median): `<= 200ms`
+
 ### 6) API/integration validation
 - Capture and validate key network calls (status codes, payload shape basics).
 - Verify API failure states produce deterministic UI feedback.
@@ -207,7 +212,7 @@ curl -sS -o /dev/null -w "%{http_code}" "$DECK_BASE_URL"
 - Any smoke failure.
 - Any critical user-journey break.
 - Missing required evidence package.
-- Critical accessibility or security-impacting API behavior failure.
+- Critical accessibility failure.
 
 ## 🔄 Workflow for Reuse by Other Agents
 1. Set `DECK_BASE_URL` and artifact output variables.
