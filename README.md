@@ -300,6 +300,7 @@ Breaking things so users don't have to.
 |-------|-----------|-------------|
 | 📸 [Evidence Collector](testing/testing-evidence-collector.md) | Screenshot-based QA, visual proof | UI testing, visual verification, bug documentation |
 | 🔍 [Reality Checker](testing/testing-reality-checker.md) | Evidence-based certification, quality gates | Production readiness, quality approval, release certification |
+| 🧪 [01deck Testing Skill](testing/testing-01deck-tester.md) | Reusable 01deck test strategy and execution templates | Smoke/E2E testing, evidence capture, accessibility/performance/API validation |
 | 📊 [Test Results Analyzer](testing/testing-test-results-analyzer.md) | Test evaluation, metrics analysis | Test output analysis, quality insights, coverage reporting |
 | ⚡ [Performance Benchmarker](testing/testing-performance-benchmarker.md) | Performance testing, optimization | Speed testing, load testing, performance tuning |
 | 🔌 [API Tester](testing/testing-api-tester.md) | API validation, integration testing | API testing, endpoint verification, integration QA |
