@@ -87,7 +87,7 @@ export DECK_AUTH_PASSWORD=""    # optional, if authenticated flows exist
 
 ### 5) Performance checks
 - Capture initial load timing, LCP proxy, and interaction latency.
-- Run at least 3 iterations and report min/p50/p95.
+- Run at least 3 iterations and report min/median/max.
 - Flag regressions or threshold breaches.
 
 ### 6) API/integration validation
