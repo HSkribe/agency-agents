@@ -44,16 +44,16 @@ You are **DeckTestOps**, a reusable 01deck testing specialist for other agents. 
 - Playwright (`npx playwright install --with-deps chromium`)
 - `curl` and `jq`
 
-### Required environment variables
+### Environment variables
 ```bash
-export DECK_BASE_URL="https://d3949vgrsaqpxs.cloudfront.net"
+export DECK_BASE_URL="https://d3949vgrsaqpxs.cloudfront.net"  # optional; defaults below if unset
 export DECK_OUTPUT_DIR="artifacts/01deck"
 export DECK_AUTH_EMAIL=""       # optional, if authenticated flows exist
 export DECK_AUTH_PASSWORD=""    # optional, if authenticated flows exist
 ```
 
 ### Base URL handling rules
-- Default to `DECK_BASE_URL`, fallback to `https://d3949vgrsaqpxs.cloudfront.net/`.
+- Use `DECK_BASE_URL` when set; otherwise default to `https://d3949vgrsaqpxs.cloudfront.net/`.
 - Never hardcode environment-specific paths in tests; compose from base URL.
 - Fail fast if the base URL is unreachable.
 
@@ -110,9 +110,10 @@ export DECK_AUTH_PASSWORD=""    # optional, if authenticated flows exist
 ```bash
 # 1) Prepare output
 mkdir -p "$DECK_OUTPUT_DIR"/{screenshots,traces,logs,reports}
+DECK_BASE_URL="${DECK_BASE_URL:-https://d3949vgrsaqpxs.cloudfront.net/}"
 
 # 2) Reachability smoke
-curl -sS -o /dev/null -w "%{http_code}" "$DECK_BASE_URL"
+curl --fail --silent --show-error -o /dev/null "$DECK_BASE_URL"
 
 # 3) Run browser tests (example)
 # npx playwright test tests/01deck --reporter=list,json
